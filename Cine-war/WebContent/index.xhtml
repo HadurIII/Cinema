@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+<h:head>
+	<title>
+		CineMaximum
+	</title>
+</h:head> 
+<body>
+
+<div align="center">
+	<h:form>            
+    <h:outputLink value="javascript:void(0)" onclick="PF('dialog').show();" title="CineMaximum">
+        <p:graphicImage url="/img/banners/cinema5stars.jpg" />
+    </h:outputLink>
+ 
+    <p:growl id="notificação" sticky="true" showDetail="true" life="2" />
+ 
+    <p:dialog header="Login" widgetVar="dialog" resizable="false" >
+    	
+        <h:panelGrid columns="2" cellpadding="5">
+            <h:outputLabel value="Usuário:" />
+            <p:inputText  value="#{loginMB.usuario}" required="true" label="Seu nome de usuario" />
+ 
+            <h:outputLabel value="Senha: " />
+            <p:password  value="#{loginMB.senha}" required="true" label="Sua senha" />
+ 
+            <f:facet name="footer">
+                <p:commandButton value="Entrar" update="notificação" actionListener="#{loginMB.logar()}"
+                                 oncomplete="tratarLogin(xhr, status, args)" />
+                <p:commandButton value="Quero me cadastrar" update="notificação" actionListener="#{loginMB.logar()}"
+                                 oncomplete="tratarLogin(xhr, status, args)" />
+            </f:facet>  
+        </h:panelGrid>
+    </p:dialog>
+</h:form>
+	
+	<h:form>
+
+		<p:outputLabel value="Teste de navegação para 'templates/padrao/'"/><br/>
+		<p:commandButton value="Estática →" action="/templates/padrao?faces-redirect=true" icon="ui-icon-document" />
+		<p:commandButton value="Dinâmica →" action="#{loginMB.redireciona()}" icon="ui-icon-person"/><br/>
+
+	</h:form>
+	
+	<script type="text/javascript">
+    function tratarLogin(xhr, status, args) {
+        if(args.validationFailed || !args.loggedIn) {
+            PF('dialog').jq.effect("shake", {times:5}, 100);
+        }
+        else {
+            PF('dialog').hide();
+            $('#loginLink').fadeOut();
+            setTimeout("document.location = '/Cine-war/erro/404.jsf'",2000);
+        }
+    }
+</script>
+	
+</div>
+</body>
+</html>
