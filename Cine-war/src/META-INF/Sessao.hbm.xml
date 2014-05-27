@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 26/05/2014 21:52:34 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="br.com.pi.teresina.cine.modelo.Sessao" table="sessao" catalog="cine">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="filme" class="br.com.pi.teresina.cine.modelo.Filme" fetch="select">
+            <column name="filmeid" not-null="true" />
+        </many-to-one>
+        <property name="dataSessao" type="timestamp">
+            <column name="data_sessao" length="19" not-null="true" />
+        </property>
+        <property name="valor" type="big_decimal">
+            <column name="valor" precision="6" not-null="true" />
+        </property>
+        <property name="duracaoSessao" type="time">
+            <column name="duracao_sessao" length="8" />
+        </property>
+        <property name="descricao" type="string">
+            <column name="descricao" length="45" />
+        </property>
+        <property name="lugares" type="java.lang.Integer">
+            <column name="lugares" />
+        </property>
+        <set name="bilhetes" table="bilhete" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="sessaoid" not-null="true" />
+            </key>
+            <one-to-many class="br.com.pi.teresina.cine.modelo.Bilhete" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,6 +1,6 @@
 package br.com.pi.teresina.cine.modelo;
-// default package
-// Generated 25/05/2014 19:02:09 by Hibernate Tools 3.4.0.CR1
+
+// Generated 26/05/2014 22:06:43 by Hibernate Tools 3.4.0.CR1
 
 import java.math.BigDecimal;
 import javax.persistence.Column;
@@ -21,32 +21,35 @@ import org.hibernate.annotations.Parameter;
 @Table(name = "extras", catalog = "cine")
 public class Extras implements java.io.Serializable {
 
-	private int idusuario;
+	private int usuarioid;
 	private Usuario usuario;
-	private BigDecimal saldo;
+	private String descricao;
+	private BigDecimal valor;
 
 	public Extras() {
 	}
 
-	public Extras(Usuario usuario) {
+	public Extras(Usuario usuario, String descricao) {
 		this.usuario = usuario;
+		this.descricao = descricao;
 	}
 
-	public Extras(Usuario usuario, BigDecimal saldo) {
+	public Extras(Usuario usuario, String descricao, BigDecimal valor) {
 		this.usuario = usuario;
-		this.saldo = saldo;
+		this.descricao = descricao;
+		this.valor = valor;
 	}
 
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "usuario"))
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "idusuario", unique = true, nullable = false)
-	public int getIdusuario() {
-		return this.idusuario;
+	@Column(name = "usuarioid", unique = true, nullable = false)
+	public int getUsuarioid() {
+		return this.usuarioid;
 	}
 
-	public void setIdusuario(int idusuario) {
-		this.idusuario = idusuario;
+	public void setUsuarioid(int usuarioid) {
+		this.usuarioid = usuarioid;
 	}
 
 	@OneToOne(fetch = FetchType.LAZY)
@@ -59,13 +62,22 @@ public class Extras implements java.io.Serializable {
 		this.usuario = usuario;
 	}
 
-	@Column(name = "saldo", precision = 6)
-	public BigDecimal getSaldo() {
-		return this.saldo;
+	@Column(name = "descricao", nullable = false, length = 45)
+	public String getDescricao() {
+		return this.descricao;
 	}
 
-	public void setSaldo(BigDecimal saldo) {
-		this.saldo = saldo;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	@Column(name = "valor", precision = 6)
+	public BigDecimal getValor() {
+		return this.valor;
+	}
+
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
 	}
 
 }

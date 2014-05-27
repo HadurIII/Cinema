@@ -1,15 +1,10 @@
 package br.com.pi.teresina.cine.modelo;
-// default package
-// Generated 25/05/2014 19:02:09 by Hibernate Tools 3.4.0.CR1
+
+// Generated 26/05/2014 22:06:43 by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -19,37 +14,25 @@ import javax.persistence.Table;
 @Table(name = "controle_acesso", catalog = "cine")
 public class ControleAcesso implements java.io.Serializable {
 
-	private Integer id;
-	private Usuario usuario;
+	private int id;
 	private String perfil;
 
 	public ControleAcesso() {
 	}
 
-	public ControleAcesso(Usuario usuario, String perfil) {
-		this.usuario = usuario;
+	public ControleAcesso(int id, String perfil) {
+		this.id = id;
 		this.perfil = perfil;
 	}
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public Integer getId() {
+	public int getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idusuario", nullable = false)
-	public Usuario getUsuario() {
-		return this.usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
 	}
 
 	@Column(name = "perfil", nullable = false, length = 45)

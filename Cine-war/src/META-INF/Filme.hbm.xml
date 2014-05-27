@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 26/05/2014 21:52:34 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="br.com.pi.teresina.cine.modelo.Filme" table="filme" catalog="cine">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="cinema" class="br.com.pi.teresina.cine.modelo.Cinema" fetch="select">
+            <column name="cinemaid" not-null="true" />
+        </many-to-one>
+        <property name="descricao" type="string">
+            <column name="descricao" length="45" not-null="true" />
+        </property>
+        <set name="sessaos" table="sessao" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="filmeid" not-null="true" />
+            </key>
+            <one-to-many class="br.com.pi.teresina.cine.modelo.Sessao" />
+        </set>
+    </class>
+</hibernate-mapping>

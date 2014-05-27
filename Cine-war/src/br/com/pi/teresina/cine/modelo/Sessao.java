@@ -1,17 +1,18 @@
 package br.com.pi.teresina.cine.modelo;
-// default package
-// Generated 25/05/2014 19:02:09 by Hibernate Tools 3.4.0.CR1
 
+// Generated 26/05/2014 22:06:43 by Hibernate Tools 3.4.0.CR1
+
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,61 +24,55 @@ import javax.persistence.TemporalType;
 @Table(name = "sessao", catalog = "cine")
 public class Sessao implements java.io.Serializable {
 
-	private Integer idsessao;
+	private int id;
 	private Filme filme;
-	private String descricao;
 	private Date dataSessao;
+	private BigDecimal valor;
 	private Date duracaoSessao;
+	private String descricao;
 	private Integer lugares;
-	private Bilhete bilhete;
+	private Set bilhetes = new HashSet(0);
 
 	public Sessao() {
 	}
 
-	public Sessao(Filme filme, Date dataSessao, Date duracaoSessao) {
+	public Sessao(int id, Filme filme, Date dataSessao, BigDecimal valor) {
+		this.id = id;
 		this.filme = filme;
 		this.dataSessao = dataSessao;
-		this.duracaoSessao = duracaoSessao;
+		this.valor = valor;
 	}
 
-	public Sessao(Filme filme, String descricao, Date dataSessao,
-			Date duracaoSessao, Integer lugares, Bilhete bilhete) {
+	public Sessao(int id, Filme filme, Date dataSessao, BigDecimal valor,
+			Date duracaoSessao, String descricao, Integer lugares, Set bilhetes) {
+		this.id = id;
 		this.filme = filme;
-		this.descricao = descricao;
 		this.dataSessao = dataSessao;
+		this.valor = valor;
 		this.duracaoSessao = duracaoSessao;
+		this.descricao = descricao;
 		this.lugares = lugares;
-		this.bilhete = bilhete;
+		this.bilhetes = bilhetes;
 	}
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "idsessao", unique = true, nullable = false)
-	public Integer getIdsessao() {
-		return this.idsessao;
+	@Column(name = "id", unique = true, nullable = false)
+	public int getId() {
+		return this.id;
 	}
 
-	public void setIdsessao(Integer idsessao) {
-		this.idsessao = idsessao;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idfilme", nullable = false)
+	@JoinColumn(name = "filmeid", nullable = false)
 	public Filme getFilme() {
 		return this.filme;
 	}
 
 	public void setFilme(Filme filme) {
 		this.filme = filme;
-	}
-
-	@Column(name = "descricao", length = 45)
-	public String getDescricao() {
-		return this.descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -90,14 +85,32 @@ public class Sessao implements java.io.Serializable {
 		this.dataSessao = dataSessao;
 	}
 
+	@Column(name = "valor", nullable = false, precision = 6)
+	public BigDecimal getValor() {
+		return this.valor;
+	}
+
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
+	}
+
 	@Temporal(TemporalType.TIME)
-	@Column(name = "duracao_sessao", nullable = false, length = 8)
+	@Column(name = "duracao_sessao", length = 8)
 	public Date getDuracaoSessao() {
 		return this.duracaoSessao;
 	}
 
 	public void setDuracaoSessao(Date duracaoSessao) {
 		this.duracaoSessao = duracaoSessao;
+	}
+
+	@Column(name = "descricao", length = 45)
+	public String getDescricao() {
+		return this.descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	@Column(name = "lugares")
@@ -109,13 +122,13 @@ public class Sessao implements java.io.Serializable {
 		this.lugares = lugares;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "sessao")
-	public Bilhete getBilhete() {
-		return this.bilhete;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "sessao")
+	public Set getBilhetes() {
+		return this.bilhetes;
 	}
 
-	public void setBilhete(Bilhete bilhete) {
-		this.bilhete = bilhete;
+	public void setBilhetes(Set bilhetes) {
+		this.bilhetes = bilhetes;
 	}
 
 }

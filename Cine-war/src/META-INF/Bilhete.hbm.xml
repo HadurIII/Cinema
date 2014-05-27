@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 26/05/2014 21:52:34 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="br.com.pi.teresina.cine.modelo.Bilhete" table="bilhete" catalog="cine">
+        <composite-id name="id" class="br.com.pi.teresina.cine.modelo.BilheteId">
+            <key-property name="sessaoid" type="int">
+                <column name="sessaoid" />
+            </key-property>
+            <key-property name="usuarioid" type="int">
+                <column name="usuarioid" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="usuario" class="br.com.pi.teresina.cine.modelo.Usuario" update="false" insert="false" fetch="select">
+            <column name="usuarioid" not-null="true" />
+        </many-to-one>
+        <many-to-one name="sessao" class="br.com.pi.teresina.cine.modelo.Sessao" update="false" insert="false" fetch="select">
+            <column name="sessaoid" not-null="true" />
+        </many-to-one>
+        <property name="code" type="string">
+            <column name="code" />
+        </property>
+    </class>
+</hibernate-mapping>

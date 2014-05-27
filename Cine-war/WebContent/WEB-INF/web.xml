@@ -30,7 +30,7 @@
   
 	<context-param>   
   		<param-name>primefaces.THEME</param-name>
-  		<param-value>rocket</param-value> 
+  		<param-value>golden-black-one</param-value> 
 	</context-param>
   
 </web-app>
